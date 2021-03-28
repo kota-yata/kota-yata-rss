@@ -27,8 +27,8 @@ func SetHost(rssFeeds string) {
 }
 
 func uploadCertChallenge() {
-	http.HandleFunc("/.well-known/acme-challenge/o7AhrXD3WFtRBrHpZdQEiJCVoEuSZ6nJcqKkgA6DwCo", func(writer http.ResponseWriter, req *http.Request) {
-		fmt.Fprint(writer, "o7AhrXD3WFtRBrHpZdQEiJCVoEuSZ6nJcqKkgA6DwCo.cNJeOkhi1FI7f7y1QEqdrZvDa29r3dp3Fz7mQrtdr2E")
+	http.HandleFunc("/google900b28595c041e06.html", func(writer http.ResponseWriter, req *http.Request) {
+		fmt.Fprint(writer, "google-site-verification: google900b28595c041e06.html")
 		return
 	})
 }
