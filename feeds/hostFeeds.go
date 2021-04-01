@@ -23,6 +23,9 @@ func SetHost(feeds []string) {
 		_, err := io.Copy(writer, reader)
 		ErrorHandling(err)
 		req.Header.Set("Content-Type", "application/json")
+		writer.Header().Set("Access-Control-Allow-Headers", "*")
+		writer.Header().Set("Access-Control-Allow-Origin", "*")
+		writer.Header().Set( "Access-Control-Allow-Methods","GET, POST, PUT, DELETE, OPTIONS" )
 		return
 	})
 	uploadCertChallenge()
