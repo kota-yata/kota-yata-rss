@@ -8,12 +8,21 @@ import (
 	"strings"
 )
 
-func SetHost(rssFeeds string) {
+func SetHost(feeds []string) {
+	rssFeeds := feeds[0]
+	apiFeeds := feeds[1]
 	http.HandleFunc("/", func(writer http.ResponseWriter, req *http.Request) {
 		reader := strings.NewReader(rssFeeds)
 		_, err := io.Copy(writer, reader)
 		ErrorHandling(err)
 		req.Header.Set("Content-Type", "application/rss+xml")
+		return
+	})
+	http.HandleFunc("/api", func(writer http.ResponseWriter, req *http.Request) {
+		reader := strings.NewReader(apiFeeds)
+		_, err := io.Copy(writer, reader)
+		ErrorHandling(err)
+		req.Header.Set("Content-Type", "application/json")
 		return
 	})
 	uploadCertChallenge()

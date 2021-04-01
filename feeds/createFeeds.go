@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func CreateFeeds(items []*gofeed.Item) string {
+func CreateFeeds(items []*gofeed.Item) []string {
 	now := time.Now()
 	feed := &feeds.Feed{
 		Title:       "kota-yata integrated RSS",
@@ -23,7 +23,10 @@ func CreateFeeds(items []*gofeed.Item) string {
 	}
 	rss, err := feed.ToRss()
 	ErrorHandling(err)
-	return rss
+	api, err := feed.ToJSON()
+	ErrorHandling(err)
+	returnedArray := []string{rss, api}
+	return returnedArray
 }
 
 func consistFeedItems(items []*gofeed.Item) []*feeds.Item {

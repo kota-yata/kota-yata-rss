@@ -6,6 +6,6 @@ import (
 
 func main() {
 	items := feeds.GetAllItem()
-	rss := feeds.CreateFeeds(items)
-	feeds.SetHost(rss)
+	feedArray := feeds.CreateFeeds(items)
+	feeds.SetHost(feedArray)
 }
