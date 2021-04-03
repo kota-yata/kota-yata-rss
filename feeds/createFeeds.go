@@ -11,7 +11,7 @@ func CreateFeeds(items []*gofeed.Item) []string {
 	feed := &feeds.Feed{
 		Title:       "kota-yata integrated RSS",
 		Link:        &feeds.Link{
-			Href: "https://feed.kota-yata.com",
+			Href: "https://integrated-rss.appspot.com/",
 		},
 		Description: "The integrated RSS feed of blogs kota-yata wrote. Including Zenn, Qiita, blog.kota-yata.com, note",
 		Author:       &feeds.Author{

@@ -12,24 +12,29 @@ func SetHost(feeds []string) {
 	rssFeeds := feeds[0]
 	apiFeeds := feeds[1]
 	http.HandleFunc("/", func(writer http.ResponseWriter, req *http.Request) {
+		writer.Header().Set("Content-Type", "application/rss+xml")
+		writer.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+		writer.Header().Set("Access-Control-Allow-Origin", "*")
+		writer.Header().Set( "Access-Control-Allow-Methods","GET, POST, PUT, DELETE, OPTIONS" )
+		if (*req).Method == "OPTIONS" {
+			return
+		}
 		reader := strings.NewReader(rssFeeds)
 		_, err := io.Copy(writer, reader)
 		ErrorHandling(err)
-		req.Header.Set("Content-Type", "application/rss+xml")
 		return
 	})
 	http.HandleFunc("/api", func(writer http.ResponseWriter, req *http.Request) {
+		writer.Header().Set("Content-Type", "application/json")
+		writer.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+		writer.Header().Set("Access-Control-Allow-Origin", "*")
+		writer.Header().Set( "Access-Control-Allow-Methods","GET, POST, PUT, DELETE, OPTIONS" )
+		if (*req).Method == "OPTIONS" {
+			return
+		}
 		reader := strings.NewReader(apiFeeds)
 		_, err := io.Copy(writer, reader)
 		ErrorHandling(err)
-		req.Header.Set("Content-Type", "application/json")
-		req.Header.Set("Access-Control-Allow-Headers", "*")
-		req.Header.Set("Access-Control-Allow-Origin", "*")
-		req.Header.Set( "Access-Control-Allow-Methods","GET, POST, PUT, DELETE, OPTIONS" )
-		writer.Header().Set("Content-Type", "application/json")
-		writer.Header().Set("Access-Control-Allow-Headers", "*")
-		writer.Header().Set("Access-Control-Allow-Origin", "*")
-		writer.Header().Set( "Access-Control-Allow-Methods","GET, POST, PUT, DELETE, OPTIONS" )
 		return
 	})
 	uploadCertChallenge()
@@ -43,8 +48,8 @@ func SetHost(feeds []string) {
 }
 
 func uploadCertChallenge() {
-	http.HandleFunc("/google900b28595c041e06.html", func(writer http.ResponseWriter, req *http.Request) {
-		fmt.Fprint(writer, "google-site-verification: google900b28595c041e06.html")
+	http.HandleFunc("/.well-known/pki-validation/A60C1FCD3DD9405F854273F29AFC7954.txt", func(writer http.ResponseWriter, req *http.Request) {
+		fmt.Fprint(writer, "C5DB15EF8C4A35769AC8BF6521B9DF5479B6382667C4B039BABBAD0A3FDE4EAA\ncomodoca.com\n3a49b7dc5e3ff77")
 		return
 	})
 }
