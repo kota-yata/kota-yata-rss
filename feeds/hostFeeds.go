@@ -12,6 +12,7 @@ func SetHost(feeds []string) {
 	rssFeeds := feeds[0]
 	apiFeeds := feeds[1]
 	http.HandleFunc("/", func(writer http.ResponseWriter, req *http.Request) {
+		req.Header.Set("Content-Type", "application/rss+xml")
 		writer.Header().Set("Content-Type", "application/rss+xml")
 		writer.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 		writer.Header().Set("Access-Control-Allow-Origin", "*")
@@ -25,6 +26,7 @@ func SetHost(feeds []string) {
 		return
 	})
 	http.HandleFunc("/api", func(writer http.ResponseWriter, req *http.Request) {
+		req.Header.Set("Content-Type", "application/json")
 		writer.Header().Set("Content-Type", "application/json")
 		writer.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 		writer.Header().Set("Access-Control-Allow-Origin", "*")
