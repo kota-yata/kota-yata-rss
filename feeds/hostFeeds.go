@@ -11,7 +11,8 @@ import (
 func SetHost(feeds []string) {
 	rssFeeds := feeds[0]
 	apiFeeds := feeds[1]
-	http.HandleFunc("/", func(writer http.ResponseWriter, req *http.Request) {
+	http.Handle("/", http.FileServer(http.Dir("./static")))
+	http.HandleFunc("/rss", func(writer http.ResponseWriter, req *http.Request) {
 		writer.Header().Set("Content-Type", "application/rss+xml")
 		writer.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 		writer.Header().Set("Access-Control-Allow-Origin", "*")
